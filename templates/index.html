@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>REGISTER</title>
+</head>
+
+<body>
+    <div class="container mt-5 ">
+        <form id="registerForm">
+            <h1 class="text-center mb-5">REGISTER</h1>
+            <hr>
+            <br>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username">
+                <label for="username">Username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password"
+                    name="cpassword">
+                <label for="cpassword">Confirm Password</label>
+            </div>
+
+            <div class="buttons d-flex justify-content-center align-items-center gap-3 mt-4">
+                <button type="submit" class="btn btn-outline-primary w-100">REGISTER</button>
+                <button type="button" class="btn btn-outline-primary w-100"
+                    onclick="location.href='/login'">LOGIN</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script>
+        $(document).ready(function () {
+            // Function to show error alert
+            function showErrorAlert(message) {
+                $('.alert').remove(); // Remove any existing alerts
+                $('<div class="alert alert-danger" role="alert">' + message + '</div>').insertBefore('form');
+            }
+
+            // Form submission handling
+            $('form').submit(function (event) {
+                event.preventDefault();
+
+                // Validation
+                var username = $('#username').val();
+                var email = $('#email').val();
+                var password = $('#password').val();
+                var cpassword = $('#cpassword').val();
+
+                if (!username || !email || !password || !cpassword) {
+                    showErrorAlert('All fields are required');
+                    return;
+                }
+
+                // Check if password meets requirements
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (!password.match(passwordRegex)) {
+                    showErrorAlert('Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.');
+                    return;
+                }
+
+                // Check if confirm password matches password
+                if (password !== cpassword) {
+                    showErrorAlert('Passwords do not match');
+                    return;
+                }
+
+                // AJAX request for registration if all validations pass
+                $.ajax({
+                    type: 'POST',
+                    url: '/register',
+                    data: $('form').serialize(),
+                    success: function (response) {
+                        $('.alert').remove(); // Remove any existing alerts
+                        $('<div class="alert alert-success" role="alert">' + response.message + '</div>').insertBefore('form');
+                        window.location.href = '/login'; // Redirect to login page after successful registration
+                    },
+                    error: function (xhr) {
+                        $('.alert').remove(); // Remove any existing alerts
+                        $('<div class="alert alert-danger" role="alert">' + xhr.responseJSON.message + '</div>').insertBefore('form');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
