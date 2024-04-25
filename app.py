@@ -262,6 +262,13 @@ def set_flag(user_id):
         return redirect(url_for('display_users'))
     else:
         return "User not found", 404
+    
+@app.route('/attack',methods=['GET','POST'])
+def attack():
+    # users = User.query.all()
+    return render_template("attack.html")
+    
+
 
 if __name__ == '__main__':
     with app.app_context():
