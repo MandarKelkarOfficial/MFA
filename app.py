@@ -36,8 +36,8 @@ def generate_random_string(length):
 
 def send_otp_to_email(receiver_email, otp):
     # Sender's email and password
-    sender_email = "sdbcontactme@gmail.com"
-    sender_password = "fywacjgevdugsgtz"
+    sender_email = "your@gmail.com"
+    sender_password = "password"
 
     # Create the message with the OTP
     message_body = f"Your OTP is: {otp}"
@@ -64,8 +64,8 @@ def send_otp_to_email(receiver_email, otp):
 
 def send_email_on_failed_login(receiver_email):
     # Sender's email and password
-    sender_email = "sdbcontactme@gmail.com"
-    sender_password = "fywacjgevdugsgtz"
+    sender_email = "youremail@gmail.com"
+    sender_password = "yourpassword"
 
     # Create the message for failed login attempts
     message_body = f"Your account has been locked due to 3 consecutive failed login attempts. Please reset your password."
@@ -92,8 +92,8 @@ def send_email_on_failed_login(receiver_email):
         
 def send_reset_password_email(receiver_email):
     # Sender's email and password
-    sender_email = "sdbcontactme@gmail.com"
-    sender_password = "fywacjgevdugsgtz"
+    sender_email = "youremail@gmail.com"
+    sender_password = "yourpassword"
 
     # Generate random alphanumeric string
     random_string = generate_random_string(10)
